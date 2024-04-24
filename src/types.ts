@@ -4,10 +4,16 @@ export interface Location{
     url: string,
 }
 
+export type Difficult = 'easy' | 'medium' | 'hard'
+
 export interface Origin{
     name: string,
     url: string,
 }
+
+export interface ImgCharacterProps {
+    url?: string;
+  }
 
 export interface Character {
     id: number,
