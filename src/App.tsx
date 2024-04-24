@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import axios, { AxiosResponse } from 'axios';
-import { ImgCharacterProps, Difficult, Character, ObjRequest } from './types';
+import { ImgCharacterProps, Character, ObjRequest } from './types';
 import { Skeleton } from "@/components/ui/skeleton"
 function App() {
 
@@ -10,12 +10,12 @@ function App() {
   const [restart, setRestart] = useState(false);
   
   const [finish, setFinish] = useState(false);
-  const [lives, setLives] = useState(3);
+  //const [lives, setLives] = useState(3);
   const [countSuccess, setCountSuccess] = useState(0);
   const [indexActualCharacter, setIndexActualCharacter] = useState(0);
   const [characters, setCharacters] = useState<Character[]>();
   const [actualCharacter, setActualCharacter] = useState<Character>();
-  const [difficult, setDifficult] = useState<Difficult>('medium');
+  //const [difficult, setDifficult] = useState<Difficult>('medium');
   const [skeleton, setSkeleton] = useState<number[]>();
 
   const canUseApi = true;
