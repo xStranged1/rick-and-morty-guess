@@ -3,6 +3,7 @@ import './App.css'
 import axios, { AxiosResponse } from 'axios';
 import { ImgCharacterProps, Character, ObjRequest } from './types';
 import { Skeleton } from "@/components/ui/skeleton"
+import soundCorrect from './assets/correctSound.mp3'
 function App() {
 
   const [firstGame, setFirstGame] = useState(true);
@@ -70,7 +71,7 @@ function App() {
     return listOfNumbers;
   }
 
-  const handleSuccess = () => {
+  const handleSuccess = async () => {
 
     setCountSuccess(countSuccess+1)
     
@@ -117,11 +118,15 @@ function App() {
   }
 
   const handleTryGuess = (guessTry: string) => {
-    if(guessTry == actualCharacter?.name){
-      handleSuccess();
-    }else{
-      handleFail();
-    }
+
+    setTimeout(() => {
+      if(guessTry == actualCharacter?.name){
+        handleSuccess();
+      }else{
+        handleFail();
+      }
+    }, 350)
+    
   }
 
 
@@ -139,14 +144,25 @@ function App() {
 
   const BtnGuess: React.FC<{name: string}> = ({name}) => {
 
+    const [bgColor, setBgColor] = useState('bg-[#b3edf9]');
+    const isCorrectButton = (name == actualCharacter?.name);
     let wonStyle = ''
-    if (name == actualCharacter?.name){
-      wonStyle = 'rounded-lg'
+    if (isCorrectButton){
+      wonStyle = 'transition duration-300 ease-in-out ...'
     }
     return(
       <div className='flex items-center justify-center mb-2'>
-        <button className={`${wonStyle ? wonStyle : ''} min-h-9 w-72 rounded-lg text-black text-base font-semibold flex p-2 px-4 items-center justify-center bg-[#b3edf9]`}
-          onClick={() => handleTryGuess(name)}
+        <button className={`${wonStyle ? wonStyle : ''} ${bgColor} transition-colors duration-200 min-h-9 w-72 rounded-lg text-black text-base font-semibold flex p-2 px-4 items-center justify-center`}
+          onClick={() => {
+            if(isCorrectButton){
+              const audio = new Audio(soundCorrect);
+              audio.play();
+              setBgColor('bg-[#08d85A]')
+            }else{
+              setBgColor('bg-[#e02829]') 
+            }
+            handleTryGuess(name)
+          }}
         >
           {name}
         </button>
